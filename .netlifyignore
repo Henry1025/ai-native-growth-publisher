@@ -1,0 +1,10 @@
+.git/
+.github/
+.netlify/
+deploy-site/
+preview-*.png
+ai-native-growth-site.zip
+assets/ai-answer-economy-hero.png
+assets/ai-native-growth-hero.png
+assets/peec-thumb.svg
+assets/doordash-thumb.svg

@@ -1,0 +1,12 @@
+preview-*.png
+*.tmp
+*.log
+*.zip
+gh-latest.json
+.gh-cli/
+deploy-site/
+.netlify/
+assets/ai-answer-economy-hero.png
+assets/ai-native-growth-hero.png
+assets/peec-thumb.svg
+assets/doordash-thumb.svg

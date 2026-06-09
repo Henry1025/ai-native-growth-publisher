@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{documentTitle}}</title>
+    <meta name="description" content="{{description}}" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="masthead" id="top">
+      <div class="utility-row">
+        <span>{{date}}</span>
+        <span>{{category}}</span>
+      </div>
+      <a class="nameplate" href="#top" aria-label="返回首页">{{siteTitle}}</a>
+    </header>
+
+    <main>
+      <section class="front-page" aria-labelledby="frontTitle">
+        <div class="lead-copy">
+          <p class="kicker">{{eyebrow}}</p>
+          <h1 id="frontTitle">{{issue}}</h1>
+        </div>
+        <aside class="today-list" aria-label="新闻概览">
+          <h2>{{sectionTitle}}</h2>
+{{articleCards}}
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>{{footer}}</p>
+    </footer>
+  </body>
+</html>
