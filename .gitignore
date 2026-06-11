@@ -3,6 +3,7 @@ preview-*.png
 *.log
 *.zip
 gh-latest.json
+gh-auth.*
 .gh-cli/
 deploy-site/
 .netlify/
