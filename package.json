@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "import": "node scripts/import-news.js",
     "generate": "node generate.js",
-    "build": "node generate.js"
+    "build": "node scripts/import-news.js && node generate.js",
+    "publish": "node scripts/publish.js",
+    "publish:dry": "node scripts/publish.js --no-git"
   }
 }

@@ -1,76 +1,88 @@
 # AI Native Growth
 
-Static monthly news brief generator.
+Static monthly news brief publisher.
 
-## How it works
+The project turns a simple editor-friendly Markdown inbox into a newspaper-style static website, then publishes it with GitHub Pages.
 
-- `content/articles.json` stores the issue metadata and article list.
-- `templates/index.template.html` stores the fixed page structure.
-- `styles.css` stores the visual style.
-- `generate.js` renders `index.html`.
-- `.github/workflows/pages.yml` can deploy the site to GitHub Pages automatically.
+## One-click workflow
 
-## Update an issue
+Edit:
 
-Edit `content/articles.json`.
-
-Each article uses this shape:
-
-```json
-{
-  "source": "TechCrunch",
-  "title": "Article title",
-  "summary": "Use the exact editorial summary provided by the editor.",
-  "url": "https://example.com/article",
-  "image": "assets/example.jpg",
-  "imageAlt": "Short image description",
-  "readTime": "2 MIN READ"
-}
+```text
+content/inbox.md
 ```
 
 Then run:
 
 ```bash
-npm run generate
+npm run publish
 ```
 
-Open `index.html` to preview.
+That command will:
 
-## Deploy with GitHub Pages
+1. Parse `content/inbox.md`.
+2. Generate `content/articles.json`.
+3. Render `index.html`.
+4. Commit the issue changes.
+5. Push to GitHub.
+6. Let GitHub Actions publish the site to the `gh-pages` branch.
 
-1. Create a GitHub repository.
-2. Push this project to the repository.
-3. In GitHub, open `Settings -> Pages`.
-4. Set source to `GitHub Actions`.
-5. Push changes to `main` or `master`.
-6. GitHub Actions will run `node generate.js` and deploy the site.
+Use this for a local dry run without Git:
 
-## Deploy with Cloudflare Pages
+```bash
+npm run publish:dry
+```
 
-1. Create a free Cloudflare account.
-2. Push this project to GitHub.
-3. In Cloudflare Pages, choose `Connect to Git`.
-4. Select the repository.
-5. Framework preset: `None`.
-6. Build command: `npm run generate`.
-7. Output directory: `/`.
-8. Deploy and use the generated `pages.dev` URL.
+## Input Format
 
-## Future workflow
+Use one top metadata block, then one `## Source | Title` block per story:
 
-For a new issue, provide:
+```md
+# AI Native Growth
 
-```text
 Issue: 6月总结
 Date: Monday, July 1, 2026
+Category: Technology / Business
+Eyebrow: News Overview
+Section: 本月新闻
+Description: AI native growth monthly news brief.
 
-News 1:
-Source:
-Title:
-Summary:
-URL:
-Image: optional
-Read time:
+## TechCrunch | Example story title
+URL: https://example.com/article
+Summary: Use the exact editorial summary provided by the editor.
+Image: assets/example.jpg
+Image Alt: Short image description
+Read Time: 2 MIN READ
 ```
 
-The template can stay unchanged while `content/articles.json` changes.
+Required article fields:
+
+- `Title` from the heading or `Title:`
+- `Source` from the heading or `Source:`
+- `URL`
+- `Summary`
+
+Optional article fields:
+
+- `Image`
+- `Image Alt`
+- `Read Time`
+
+## Project Structure
+
+- `content/inbox.md`: editor-facing input
+- `scripts/import-news.js`: converts inbox Markdown to JSON
+- `content/articles.json`: generated structured content
+- `templates/index.template.html`: fixed page structure
+- `styles.css`: visual style
+- `generate.js`: renders `index.html`
+- `scripts/publish.js`: one-command import, generate, commit, push
+- `.github/workflows/pages.yml`: publishes generated static files to `gh-pages`
+
+## Public URL
+
+https://henry1025.github.io/ai-native-growth---/
+
+## Notes
+
+The editor summary is treated as the source of truth. The importer does not rewrite or invent article analysis.
