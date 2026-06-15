@@ -1,6 +1,7 @@
 # AI Native Growth
 
 Issue: 6月AI Native增长新闻
+Slug: 2026-06
 Date: Monday, June 15, 2026
 Category: AI Native Growth / Advertising
 Eyebrow: News Overview

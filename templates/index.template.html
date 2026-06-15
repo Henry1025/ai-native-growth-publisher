@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{documentTitle}}</title>
     <meta name="description" content="{{description}}" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="{{stylesheetHref}}" />
   </head>
   <body>
     <header class="masthead" id="top">
@@ -13,7 +13,7 @@
         <span>{{date}}</span>
         <span>{{category}}</span>
       </div>
-      <a class="nameplate" href="#top" aria-label="返回首页">{{siteTitle}}</a>
+      <a class="nameplate" href="{{homeHref}}" aria-label="Return home">{{siteTitle}}</a>
     </header>
 
     <main>
@@ -22,11 +22,12 @@
           <p class="kicker">{{eyebrow}}</p>
           <h1 id="frontTitle">{{issue}}</h1>
         </div>
-        <aside class="today-list" aria-label="新闻概览">
+        <aside class="today-list" aria-label="News overview">
           <h2>{{sectionTitle}}</h2>
 {{articleCards}}
         </aside>
       </section>
+{{archiveSection}}
     </main>
 
     <footer class="site-footer">

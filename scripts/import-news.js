@@ -7,51 +7,34 @@ const fieldAliases = {
   sitetitle: "siteTitle",
   "site title": "siteTitle",
   title: "siteTitle",
-  站点标题: "siteTitle",
+  slug: "slug",
+  permalink: "slug",
   issue: "issue",
-  期数: "issue",
-  月报: "issue",
   date: "date",
-  日期: "date",
   category: "category",
-  分类: "category",
   eyebrow: "eyebrow",
-  眉题: "eyebrow",
   section: "sectionTitle",
   "section title": "sectionTitle",
-  栏目: "sectionTitle",
-  区块标题: "sectionTitle",
   description: "description",
-  描述: "description",
-  导语: "description",
   footer: "footer",
-  页脚: "footer",
 };
 
 const articleAliases = {
   source: "source",
-  来源: "source",
   title: "title",
-  标题: "title",
   url: "url",
   link: "url",
-  链接: "url",
   summary: "summary",
-  摘要: "summary",
-  总结: "summary",
   image: "image",
-  图片: "image",
   "image alt": "imageAlt",
   imagealt: "imageAlt",
-  图片描述: "imageAlt",
   "read time": "readTime",
   readtime: "readTime",
-  阅读时长: "readTime",
 };
 
 const defaultContent = {
   siteTitle: "AI Native Growth",
-  issue: "月度总结",
+  issue: "Monthly Brief",
   date: new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     year: "numeric",
@@ -86,6 +69,7 @@ function parseArgs(argv) {
   const options = {
     input: path.join(root, "content", "inbox.md"),
     output: path.join(root, "content", "articles.json"),
+    archiveDir: path.join(root, "content", "issues"),
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -95,6 +79,9 @@ function parseArgs(argv) {
       i += 1;
     } else if (arg === "--output" || arg === "-o") {
       options.output = path.resolve(root, argv[i + 1]);
+      i += 1;
+    } else if (arg === "--archive-dir") {
+      options.archiveDir = path.resolve(root, argv[i + 1]);
       i += 1;
     }
   }
@@ -111,11 +98,17 @@ function normalizeKey(rawKey) {
 }
 
 function readKeyValue(line) {
-  const match = line.match(/^(?:[-*]\s*)?([^:：]+)\s*[:：]\s*(.*)$/);
-  if (!match) return null;
+  const asciiColon = line.indexOf(":");
+  const fullWidthColon = line.indexOf("：");
+  const colonPositions = [asciiColon, fullWidthColon].filter((index) => index >= 0);
+  if (!colonPositions.length) return null;
+
+  const splitAt = Math.min(...colonPositions);
+  const rawKey = line.slice(0, splitAt).replace(/^[-*]\s*/, "");
+  const value = line.slice(splitAt + 1).trim();
   return {
-    key: normalizeKey(match[1]),
-    value: match[2].trim(),
+    key: normalizeKey(rawKey),
+    value,
   };
 }
 
@@ -144,6 +137,43 @@ function estimateReadTime(article) {
   const text = `${article.title ?? ""}${article.summary ?? ""}`;
   const minutes = Math.max(2, Math.ceil(Array.from(text).length / 700));
   return `${minutes} MIN READ`;
+}
+
+function slugify(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function inferYear(dateText) {
+  const directYear = String(dateText ?? "").match(/\b(20\d{2})\b/);
+  if (directYear) return directYear[1];
+
+  const parsed = Date.parse(dateText);
+  if (!Number.isNaN(parsed)) {
+    return String(new Date(parsed).getFullYear());
+  }
+
+  return String(new Date().getFullYear());
+}
+
+function inferSlug(content) {
+  if (content.slug) return slugify(content.slug);
+
+  const issue = String(content.issue ?? "");
+  const issueMonth = issue.match(/(\d{1,2})\s*月/);
+  if (issueMonth) {
+    return `${inferYear(content.date)}-${issueMonth[1].padStart(2, "0")}`;
+  }
+
+  const isoMonth = `${content.date} ${content.issue}`.match(/\b(20\d{2})[-/](0?[1-9]|1[0-2])\b/);
+  if (isoMonth) {
+    return `${isoMonth[1]}-${isoMonth[2].padStart(2, "0")}`;
+  }
+
+  return slugify(content.issue) || slugify(content.date) || "latest";
 }
 
 function normalizeArticle(article, index) {
@@ -223,21 +253,29 @@ function parseInbox(markdown) {
     }
   }
 
+  content.slug = inferSlug(content);
   content.articles = content.articles.map(normalizeArticle);
   validate(content);
   return content;
+}
+
+function writeJson(filePath, data) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
 function main() {
   const options = parseArgs(process.argv.slice(2));
   const markdown = fs.readFileSync(options.input, "utf8");
   const content = parseInbox(markdown);
+  const archivePath = path.join(options.archiveDir, `${content.slug}.json`);
 
-  fs.mkdirSync(path.dirname(options.output), { recursive: true });
-  fs.writeFileSync(options.output, `${JSON.stringify(content, null, 2)}\n`, "utf8");
+  writeJson(options.output, content);
+  writeJson(archivePath, content);
 
   console.log(`Imported ${content.articles.length} article(s) from ${path.relative(root, options.input)}`);
-  console.log(`Wrote ${path.relative(root, options.output)}`);
+  console.log(`Wrote latest content to ${path.relative(root, options.output)}`);
+  console.log(`Archived issue as ${path.relative(root, archivePath)}`);
 }
 
 main();

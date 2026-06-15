@@ -29,9 +29,12 @@ jobs:
 
       - name: Prepare public directory
         run: |
+          rm -rf dist
           mkdir -p dist
           cp index.html styles.css dist/
           cp -R assets dist/
+          if [ -d issues ]; then cp -R issues dist/; fi
+          touch dist/.nojekyll
 
       - name: Publish to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4

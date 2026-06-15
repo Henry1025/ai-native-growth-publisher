@@ -39,7 +39,7 @@ function main() {
     return;
   }
 
-  run("git", ["add", "content/inbox.md", "content/articles.json", "index.html", "assets"]);
+  run("git", ["add", "."]);
 
   const staged = output("git", ["diff", "--cached", "--name-only"]);
   if (!staged) {
