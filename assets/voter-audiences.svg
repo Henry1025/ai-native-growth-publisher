@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Voter audiences thumbnail</title>
+  <desc id="desc">Abstract AI audience segmentation interface for political advertising.</desc>
+  <rect width="800" height="600" fill="#f6f4ee"/>
+  <rect x="44" y="44" width="712" height="512" fill="#ffffff" stroke="#202020" stroke-width="3"/>
+  <rect x="96" y="104" width="608" height="86" fill="#efe7d4" stroke="#202020" stroke-width="3"/>
+  <path d="M126 148h230M386 148h82" stroke="#202020" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="630" cy="147" r="24" fill="#b9d7c2" stroke="#202020" stroke-width="3"/>
+  <g stroke="#202020" stroke-width="3">
+    <rect x="96" y="236" width="168" height="174" fill="#dce9f7"/>
+    <rect x="316" y="236" width="168" height="174" fill="#dfecd8"/>
+    <rect x="536" y="236" width="168" height="174" fill="#f0ddda"/>
+  </g>
+  <g fill="#202020">
+    <circle cx="180" cy="294" r="24"/>
+    <path d="M138 367c12-36 72-36 84 0" fill="none" stroke="#202020" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="400" cy="294" r="24"/>
+    <path d="M358 367c12-36 72-36 84 0" fill="none" stroke="#202020" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="620" cy="294" r="24"/>
+    <path d="M578 367c12-36 72-36 84 0" fill="none" stroke="#202020" stroke-width="13" stroke-linecap="round"/>
+  </g>
+  <path d="M180 410v54h440v-54M400 410v54" fill="none" stroke="#202020" stroke-width="4"/>
+  <rect x="298" y="464" width="204" height="58" fill="#202020"/>
+  <g fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700">
+    <text x="338" y="503">AI MATCH</text>
+  </g>
+</svg>
