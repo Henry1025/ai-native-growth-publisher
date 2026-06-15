@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Intent patterns thumbnail</title>
+  <desc id="desc">Abstract comparison of conversational AI and search intent paths.</desc>
+  <rect width="800" height="600" fill="#f7f6f1"/>
+  <rect x="42" y="42" width="716" height="516" fill="#ffffff" stroke="#202020" stroke-width="3"/>
+  <path d="M400 86v428" stroke="#202020" stroke-width="2"/>
+  <circle cx="205" cy="160" r="58" fill="#d8eadf" stroke="#202020" stroke-width="3"/>
+  <path d="M166 158h78M166 184h52M166 132h70" stroke="#202020" stroke-width="12" stroke-linecap="round"/>
+  <path d="M250 202l38 30-54-6z" fill="#d8eadf" stroke="#202020" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="595" cy="160" r="58" fill="#dfe8f6" stroke="#202020" stroke-width="3"/>
+  <circle cx="578" cy="145" r="28" fill="none" stroke="#202020" stroke-width="11"/>
+  <path d="M601 168l36 36" stroke="#202020" stroke-width="13" stroke-linecap="round"/>
+  <path d="M126 324c58-72 112-72 170 0s112 72 170 0" fill="none" stroke="#4f7d64" stroke-width="9" stroke-linecap="round"/>
+  <path d="M458 324c44-30 88-30 132 0s88 30 132 0" fill="none" stroke="#4d6f9f" stroke-width="9" stroke-linecap="round"/>
+  <g fill="#202020" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">
+    <text x="118" y="442">CONVERSATION</text>
+    <text x="504" y="442">SEARCH</text>
+  </g>
+  <g fill="#6a6a6a" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+    <text x="126" y="480">explore intent</text>
+    <text x="512" y="480">capture demand</text>
+  </g>
+</svg>
