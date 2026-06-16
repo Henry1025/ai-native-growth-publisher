@@ -12,9 +12,9 @@ The project turns `content/inbox.md` into a newspaper-style website, keeps every
 Example URLs:
 
 ```text
-https://henry1025.github.io/ai-native-growth---/
-https://henry1025.github.io/ai-native-growth---/issues/2026-05/
-https://henry1025.github.io/ai-native-growth---/issues/2026-06/
+https://henry1025.github.io/ai-native-growth-publisher/
+https://henry1025.github.io/ai-native-growth-publisher/issues/2026-05/
+https://henry1025.github.io/ai-native-growth-publisher/issues/2026-06/
 ```
 
 ## Everyday Workflow
@@ -117,4 +117,7 @@ index.html              # Latest issue page
 
 ## Public URL
 
-https://henry1025.github.io/ai-native-growth---/
+https://henry1025.github.io/ai-native-growth-publisher/
+
+The GitHub Pages URL follows the repository name. If the repository is renamed
+again, update this URL and the local Git remote together.
